@@ -3,7 +3,7 @@
 _Autor: Saul Echeverri_   
 _Edición: 2024_
 
-<img src="https://github.com/saulolo/EjerciciosLibroAprendeJava-master/blob/master/Portada.png" width="300px" alt="Portada del Proyecto">
+<img src="https://www.udemy.com/course/proyecto-ecommerce-con-spring-boot-y-arquitectura-hexagonal/?couponCode=ST12MT122624" width="300px" alt="Portada del Proyecto">
 
 ## Tabla de Contenidos 📚
 
