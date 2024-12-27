@@ -3,9 +3,8 @@ package edu.study.ecommerce.application.service;
 import edu.study.ecommerce.application.repository.ProductRepository;
 import edu.study.ecommerce.domain.Product;
 import edu.study.ecommerce.domain.User;
-import org.springframework.stereotype.Service;
 
-@Service
+//@Service
 public class ProductService {
 
     private final ProductRepository productRepository;
