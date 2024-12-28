@@ -2,9 +2,7 @@ package edu.study.ecommerce.application.repository;
 
 import edu.study.ecommerce.domain.Product;
 import edu.study.ecommerce.domain.User;
-import org.springframework.stereotype.Repository;
 
-@Repository
 public interface ProductRepository {
 
     /**

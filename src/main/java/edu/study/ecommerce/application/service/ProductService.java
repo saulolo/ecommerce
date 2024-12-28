@@ -4,7 +4,6 @@ import edu.study.ecommerce.application.repository.ProductRepository;
 import edu.study.ecommerce.domain.Product;
 import edu.study.ecommerce.domain.User;
 
-//@Service
 public class ProductService {
 
     private final ProductRepository productRepository;
