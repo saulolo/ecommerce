@@ -5,6 +5,7 @@ import edu.study.ecommerce.infrastructure.entity.ProductEntity;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 public class ProductDomainMapper {
 
@@ -67,8 +68,8 @@ public class ProductDomainMapper {
      * @param productEntities
      * @return List<Product>
      */
-    public List<Product> fromProductEntitiesToProducts(List<ProductEntity> productEntities) {
-        return productEntities == null ? null : productEntities.stream()
+    public List<Product> fromProductEntitiesToProducts(Iterable<ProductEntity> productEntities) {
+        return productEntities == null ? null : StreamSupport.stream(productEntities.spliterator(), false)
                 .map(this::fromProductEntityToProduct)
                 .collect(Collectors.toList());
     }
@@ -79,8 +80,8 @@ public class ProductDomainMapper {
      * @param products
      * @return List<ProductEntity>
      */
-    public List<ProductEntity> fromProductsToProductEntities(List<Product> products) {
-        return products == null ? null : products.stream()
+    public List<ProductEntity> fromProductsToProductEntities(Iterable<Product> products) {
+        return products == null ? null : StreamSupport.stream(products.spliterator(), false)
                 .map(this::fromProductToProductEntity)
                 .collect(Collectors.toList());
     }
