@@ -14,7 +14,7 @@ public class UserDomainMapper {
      * @param userEntity
      * @return User
      */
-    public static User fromUserEntityToUser(UserEntity userEntity) {
+    public User fromUserEntityToUser(UserEntity userEntity) {
         if (userEntity == null) {
             return null;
         }
@@ -38,7 +38,7 @@ public class UserDomainMapper {
      * @param user
      * @return UserEntity
      */
-    public static UserEntity fromUserToUserEntity(User user) {
+    public UserEntity fromUserToUserEntity(User user) {
         if (user == null) {
             return null;
         }
@@ -62,9 +62,9 @@ public class UserDomainMapper {
      * @param userEntities
      * @return List<User>
      */
-    public static List<User> fromUserEntitiesToUsers(List<UserEntity> userEntities) {
+    public List<User> fromUserEntitiesToUsers(List<UserEntity> userEntities) {
         return userEntities == null ? null : userEntities.stream()
-                .map(UserDomainMapper::fromUserEntityToUser)
+                .map(this::fromUserEntityToUser)
                 .collect(Collectors.toList());
     }
 
@@ -74,9 +74,9 @@ public class UserDomainMapper {
      * @param users
      * @return List<UserEntity>
      */
-    public static List<UserEntity> fromUsersToUserEntities(List<User> users) {
+    public List<UserEntity> fromUsersToUserEntities(List<User> users) {
         return users == null ? null : users.stream()
-                .map(UserDomainMapper::fromUserToUserEntity)
+                .map(this::fromUserToUserEntity)
                 .collect(Collectors.toList());
     }
 

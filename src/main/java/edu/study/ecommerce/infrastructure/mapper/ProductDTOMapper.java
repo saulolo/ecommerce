@@ -5,13 +5,19 @@ import edu.study.ecommerce.infrastructure.dto.ProductDTO;
 
 public class ProductDTOMapper {
 
+    private final UserDTOMapper userDTOMapper;
+
+    public ProductDTOMapper(UserDTOMapper userDTOMapper) {
+        this.userDTOMapper = userDTOMapper;
+    }
+
 
     /**
      * This method converts a Product object to a ProductDTO object
      * @param product
      * @return ProductDTO
      */
-    public static ProductDTO fromProductToProductDTO(Product product) {
+    public ProductDTO fromProductToProductDTO(Product product) {
         if (product == null) {
             return null;
         }
@@ -24,7 +30,7 @@ public class ProductDTOMapper {
                 .price(product.getPrice())
                 .dateCreated(product.getDateCreated())
                 .dateUpdated(product.getDateUpdated())
-                .user(UserDTOMapper.fromUserToUserDTO(product.getUser()))
+                .user(userDTOMapper.fromUserToUserDTO(product.getUser()))
                 .build();
     }
 
@@ -33,7 +39,7 @@ public class ProductDTOMapper {
      * @param productDTO
      * @return Product
      */
-    public static Product fromProductDTOtoProduct(ProductDTO productDTO) {
+    public Product fromProductDTOtoProduct(ProductDTO productDTO) {
         if (productDTO == null) {
             return null;
         }
@@ -46,7 +52,7 @@ public class ProductDTOMapper {
                 .price(productDTO.getPrice())
                 .dateCreated(productDTO.getDateCreated())
                 .dateUpdated(productDTO.getDateUpdated())
-                .user(UserDTOMapper.fromUserDtoToUser(productDTO.getUser()))
+                .user(userDTOMapper.fromUserDtoToUser(productDTO.getUser()))
                 .build();
     }
 }

@@ -11,7 +11,7 @@ public class UserDTOMapper {
      * @param user
      * @return UserDTO
      */
-    public static UserDTO fromUserToUserDTO(User user) {
+    public UserDTO fromUserToUserDTO(User user) {
         if (user == null) {
             return null;
         }
@@ -34,7 +34,7 @@ public class UserDTOMapper {
      * @param userDTO
      * @return User
      */
-    public static User fromUserDtoToUser(UserDTO userDTO) {
+    public User fromUserDtoToUser(UserDTO userDTO) {
         if (userDTO == null) {
             return null;
         }

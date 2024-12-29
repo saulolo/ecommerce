@@ -8,13 +8,20 @@ import java.util.stream.Collectors;
 
 public class ProductDomainMapper {
 
+    private final UserDomainMapper userDomainMapper;
+
+    public ProductDomainMapper(UserDomainMapper userDomainMapper) {
+        this.userDomainMapper = userDomainMapper;
+    }
+
+
     /**
      * Converts a ProductEntity to a Product
      *
      * @param productEntity
      * @return Product
      */
-    public static Product fromProductEntityToProduct(ProductEntity productEntity) {
+    public Product fromProductEntityToProduct(ProductEntity productEntity) {
         if (productEntity == null) {
             return null;
         }
@@ -27,7 +34,7 @@ public class ProductDomainMapper {
                 .price(productEntity.getPrice())
                 .dateCreated(productEntity.getDateCreated())
                 .dateUpdated(productEntity.getDateUpdated())
-                .user(UserDomainMapper.fromUserEntityToUser(productEntity.getUserEntity()))
+                .user(userDomainMapper.fromUserEntityToUser(productEntity.getUserEntity()))
                 .build();
     }
 
@@ -37,7 +44,7 @@ public class ProductDomainMapper {
      * @param product
      * @return ProductEntity
      */
-    public static ProductEntity fromProductToProductEntity(Product product) {
+    public ProductEntity fromProductToProductEntity(Product product) {
         if (product == null) {
             return null;
         }
@@ -50,7 +57,7 @@ public class ProductDomainMapper {
                 .price(product.getPrice())
                 .dateCreated(product.getDateCreated())
                 .dateUpdated(product.getDateUpdated())
-                .userEntity(UserDomainMapper.fromUserToUserEntity(product.getUser()))
+                .userEntity(userDomainMapper.fromUserToUserEntity(product.getUser()))
                 .build();
     }
 
@@ -60,9 +67,9 @@ public class ProductDomainMapper {
      * @param productEntities
      * @return List<Product>
      */
-    public static List<Product> fromProductEntitiesToProducts(List<ProductEntity> productEntities) {
+    public List<Product> fromProductEntitiesToProducts(List<ProductEntity> productEntities) {
         return productEntities == null ? null : productEntities.stream()
-                .map(ProductDomainMapper::fromProductEntityToProduct)
+                .map(this::fromProductEntityToProduct)
                 .collect(Collectors.toList());
     }
 
@@ -72,9 +79,9 @@ public class ProductDomainMapper {
      * @param products
      * @return List<ProductEntity>
      */
-    public static List<ProductEntity> fromProductsToProductEntities(List<Product> products) {
+    public List<ProductEntity> fromProductsToProductEntities(List<Product> products) {
         return products == null ? null : products.stream()
-                .map(ProductDomainMapper::fromProductToProductEntity)
+                .map(this::fromProductToProductEntity)
                 .collect(Collectors.toList());
     }
 
