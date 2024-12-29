@@ -1,6 +1,5 @@
-package edu.study.ecommerce.infrastructure.entity;
+package edu.study.ecommerce.infrastructure.dto;
 
-import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -8,16 +7,12 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
-@Entity
 @Builder(toBuilder = true)
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "products")
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class ProductEntity {
+public class ProductDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
     String code;
     String name;
@@ -28,8 +23,5 @@ public class ProductEntity {
     LocalDateTime dateCreated;
     LocalDateTime dateUpdated;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    UserEntity userEntity;
-
+    UserDTO user;
 }

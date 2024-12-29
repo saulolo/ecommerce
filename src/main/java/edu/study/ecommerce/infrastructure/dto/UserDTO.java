@@ -1,23 +1,18 @@
-package edu.study.ecommerce.infrastructure.entity;
+package edu.study.ecommerce.infrastructure.dto;
 
 import edu.study.ecommerce.domain.UserType;
-import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDateTime;
 
 @Data
-@Entity
 @Builder(toBuilder = true)
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "users")
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class UserEntity {
+public class UserDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
     String username;
     String firstName;
@@ -27,9 +22,7 @@ public class UserEntity {
     String cellphone;
     String password;
 
-    @Enumerated(EnumType.STRING)
     UserType userType;
 
     LocalDateTime dateCreated;
-
 }
