@@ -4,6 +4,8 @@ import edu.study.ecommerce.application.repository.ProductRepository;
 import edu.study.ecommerce.domain.Product;
 import edu.study.ecommerce.domain.User;
 
+import java.time.LocalDateTime;
+
 public class ProductService {
 
     private final ProductRepository productRepository;
@@ -44,6 +46,11 @@ public class ProductService {
      * @return Product
      */
     public Product saveProduct(Product product) {
+        User user = new User();
+        user.setId(1);
+        product.setDateCreated(LocalDateTime.now());
+        product.setDateUpdated(LocalDateTime.now());
+        product.setUser(user);
         return productRepository.saveProduct(product);
     }
 
