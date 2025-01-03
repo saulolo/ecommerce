@@ -1,30 +1,28 @@
 package edu.study.ecommerce.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDateTime;
 
 @Data
-@Builder(toBuilder = true)
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder(toBuilder = true)
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class User {
 
-    private Integer id;
-    private String username;
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String address;
-    private String cellphone;
-    private String password;
+    Integer id;
+    String username;
+    String firstName;
+    String lastName;
+    String email;
+    String address;
+    String cellphone;
+    String password;
 
-    private UserType userType;
+    UserType userType;
 
-    private LocalDateTime dateCreated;
+    LocalDateTime dateCreated;
 
 }
-

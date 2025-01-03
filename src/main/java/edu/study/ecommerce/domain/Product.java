@@ -1,32 +1,32 @@
 package edu.study.ecommerce.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
-@Builder(toBuilder = true)
+@ToString
 @AllArgsConstructor
+@Builder(toBuilder = true)
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Product {
 
-    private Integer id;
-    private String code;
-    private String name;
-    private String description;
-    private String image;
-    private BigDecimal price;
+    Integer id;
+    String code;
+    String name;
+    String description;
+    String image;
+    BigDecimal price;
 
-    private LocalDateTime dateCreated;
-    private LocalDateTime dateUpdated;
+    LocalDateTime dateCreated;
+    LocalDateTime dateUpdated;
 
-    private User user;
+    User user;
 
     public Product() {
         this.setCode(UUID.randomUUID().toString());
     }
 }
-
