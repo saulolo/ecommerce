@@ -109,6 +109,8 @@ Este proyecto fue construido utilizando las siguientes herramientas y tecnologí
 * **Maven**: Gestor de dependencias que se utilizó para administrar las bibliotecas y las dependencias del proyecto. 
 Puedes encontrar más información sobre Maven en [https://maven.apache.org/](https://maven.apache.org/).
 * **Spring Boot**: Framework de desarrollo para crear aplicaciones Java rápidamente. [https://spring.io/projects/spring-boot](https://spring.io/projects/spring-boot).
+* **Thymeleaft**: Es una biblioteca Java que implementa un motor de plantillas de XML/XHTML/HTML5 (también extensible a 
+otros formatos) que puede ser utilizado tanto en modo web como en otros entornos no web. [https://www.thymeleaf.org/](https://www.thymeleaf.org/).
 
 
 ## Contribuyendo 🖇️
