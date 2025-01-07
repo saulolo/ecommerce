@@ -58,7 +58,7 @@ public class ProductController {
     }
 
     /**
-     * Edit product
+     * Get product by id to edit
      * @param id
      * @param model
      * @return String
