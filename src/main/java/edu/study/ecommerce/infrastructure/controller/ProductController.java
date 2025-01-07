@@ -43,7 +43,6 @@ public class ProductController {
         return "redirect:/admin";
     }
 
-
     /**
      * Show products
      * @param model
@@ -58,15 +57,18 @@ public class ProductController {
         return "admin/products/show";
     }
 
-
     /**
      * Edit product
      * @param id
+     * @param model
+     * @return String
      */
     @GetMapping("/edit/{id}")
-    public void editProduct(@PathVariable Integer id) {
+    public String editProduct(@PathVariable Integer id, Model model) {
     Product product = productService.getProductById(id);
         log.info("Producto obtenido: {}", product);
+        model.addAttribute("product", product);
+        return "admin/products/edit";
     }
 
 }
