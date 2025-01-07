@@ -40,12 +40,21 @@ public class ProductService {
         return productRepository.getProductById(id);
     }
 
+
     /**
-     * Save product
-     * @param product
-     * @return Product
+     * Saves a product
+     * @param product object to be saved or updated.
+     *                If the product's ID is null, it will be treated as a new product.
+     * @return product
      */
     public Product saveProduct(Product product) {
+        if (product.getId() != null) {
+            Product productDB = productRepository.getProductById(product.getId());
+            product.setCode(productDB.getCode());
+            product.setUser(productDB.getUser());
+            product.setDateCreated(productDB.getDateCreated());
+            product.setDateUpdated(LocalDateTime.now());
+        }
         User user = new User();
         user.setId(1);
         product.setDateCreated(LocalDateTime.now());
