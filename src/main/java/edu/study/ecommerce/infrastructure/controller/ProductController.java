@@ -40,4 +40,9 @@ public class ProductController {
         return "redirect:/admin";
     }
 
+    @GetMapping("/show")
+    public String showProducts() {
+        return "admin/products/show";
+    }
+
 }
