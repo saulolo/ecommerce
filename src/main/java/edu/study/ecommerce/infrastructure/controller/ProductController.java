@@ -2,8 +2,10 @@ package edu.study.ecommerce.infrastructure.controller;
 
 import edu.study.ecommerce.application.service.ProductService;
 import edu.study.ecommerce.domain.Product;
+import edu.study.ecommerce.domain.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,8 +42,18 @@ public class ProductController {
         return "redirect:/admin";
     }
 
+
+    /**
+     * Show products
+     * @param model
+     * @return String
+     */
     @GetMapping("/show")
-    public String showProducts() {
+    public String showProducts(Model model) {
+        User user = new User();
+        user.setId(1);
+        Iterable<Product> products = productService.getProductsByUser(user);
+        model.addAttribute("products", products);
         return "admin/products/show";
     }
 
