@@ -13,14 +13,16 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class BeanConfiguration {
 
+
     /**
      * ProductService bean
      * @param productRepository
+     * @param uploadFile
      * @return ProductService
      */
     @Bean
-    public ProductService productService(ProductRepository productRepository) {
-        return new ProductService(productRepository);
+    public ProductService productService(ProductRepository productRepository, UploadFile uploadFile) {
+        return new ProductService(productRepository, uploadFile);
     }
 
     /**
