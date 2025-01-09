@@ -2,6 +2,7 @@ package edu.study.ecommerce.infrastructure.configuration;
 
 import edu.study.ecommerce.application.repository.ProductRepository;
 import edu.study.ecommerce.application.service.ProductService;
+import edu.study.ecommerce.application.service.UploadFile;
 import edu.study.ecommerce.infrastructure.mapper.ProductDTOMapper;
 import edu.study.ecommerce.infrastructure.mapper.ProductDomainMapper;
 import edu.study.ecommerce.infrastructure.mapper.UserDTOMapper;
@@ -50,8 +51,22 @@ public class BeanConfiguration {
         return new UserDomainMapper();
     }
 
+    /**
+     * UserDTOMapper bean
+     * @return UserDTOMapper
+     */
     @Bean
     public UserDTOMapper userDTOMapper() {
         return new UserDTOMapper();
     }
+
+    /**
+     * UploadFile bean
+     * @return UploadFile
+     */
+    @Bean
+    public UploadFile uploadFile() {
+        return new UploadFile();
+    }
+
 }
