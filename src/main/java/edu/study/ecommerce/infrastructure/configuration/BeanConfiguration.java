@@ -1,14 +1,9 @@
 package edu.study.ecommerce.infrastructure.configuration;
 
 import edu.study.ecommerce.application.repository.ProductRepository;
-import edu.study.ecommerce.application.repository.StockRepository;
 import edu.study.ecommerce.application.service.ProductService;
-import edu.study.ecommerce.application.service.StockService;
 import edu.study.ecommerce.application.service.UploadFile;
-import edu.study.ecommerce.infrastructure.mapper.ProductDTOMapper;
-import edu.study.ecommerce.infrastructure.mapper.ProductDomainMapper;
-import edu.study.ecommerce.infrastructure.mapper.UserDTOMapper;
-import edu.study.ecommerce.infrastructure.mapper.UserDomainMapper;
+import edu.study.ecommerce.infrastructure.mapper.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -76,13 +71,30 @@ public class BeanConfiguration {
     /**
      * StockService bean
      * @param stockRepository
+     * @param stockMapper
      * @return StockService
      */
+/*    @Bean
+    public StockService stockService(StockRepository stockRepository, StockMapper stockMapper) {
+        return new StockService(stockRepository, stockMapper);
+    }*/
+
+    /**
+     * ProductMapper bean
+     * @return ProductMapper
+     */
     @Bean
-    public StockService stockService(StockRepository stockRepository) {
-        return new StockService(stockRepository);
+    public ProductMapper productMapper() {
+        return new ProductMapper();
     }
 
-
-
+    /**
+     * StockMapper bean
+     * @param productMapper
+     * @return StockMapper
+     */
+    @Bean
+    public StockMapper stockMapper(ProductMapper productMapper) {
+        return new StockMapper(productMapper);
+    }
 }
