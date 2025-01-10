@@ -1,7 +1,9 @@
 package edu.study.ecommerce.infrastructure.configuration;
 
 import edu.study.ecommerce.application.repository.ProductRepository;
+import edu.study.ecommerce.application.repository.StockRepository;
 import edu.study.ecommerce.application.service.ProductService;
+import edu.study.ecommerce.application.service.StockService;
 import edu.study.ecommerce.application.service.UploadFile;
 import edu.study.ecommerce.infrastructure.mapper.*;
 import org.springframework.context.annotation.Bean;
@@ -74,10 +76,10 @@ public class BeanConfiguration {
      * @param stockMapper
      * @return StockService
      */
-/*    @Bean
+    @Bean
     public StockService stockService(StockRepository stockRepository, StockMapper stockMapper) {
         return new StockService(stockRepository, stockMapper);
-    }*/
+    }
 
     /**
      * ProductMapper bean
