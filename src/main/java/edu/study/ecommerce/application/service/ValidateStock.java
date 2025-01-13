@@ -24,7 +24,7 @@ public class ValidateStock {
      */
     private boolean existBalance(Product product) {
         List<Stock> stockList = stockService.getStockByProduct(product);
-        return !stockList.isEmpty();
+        return stockList.isEmpty() ? false : true;
     }
 
     /**
