@@ -39,7 +39,7 @@ public class StockController {
         product.setId(id);
         List<Stock> stocks = stockService.getStockByProduct(product);
         model.addAttribute("stocks", stocks);
-        model.addAttribute("idProduct", id);
+        model.addAttribute("idproduct", id);
         return "admin/stock/show";
     }
 
@@ -50,9 +50,9 @@ public class StockController {
      * @param model the model to which attributes are added for rendering the view
      * @return the name of the view to be rendered
      */
-    @GetMapping("create-unit-product/{id}")
+    @GetMapping("/create-unit-product/{id}")
     public String create(@PathVariable Integer id, Model model) {
-        model.addAttribute("idProduct", id);
+        model.addAttribute("idproduct", id);
         return "admin/stock/create";
     }
 
@@ -64,11 +64,11 @@ public class StockController {
      * @return the URL to which the client is redirected
      */
     @PostMapping("/save-unit-product")
-    public String save(Stock stock, @RequestParam("idProduct") Integer idProduct) {
+    public String save(Stock stock, @RequestParam("idproduct") Integer idproduct) {
         stock.setDateCreated(LocalDateTime.now());
         stock.setDescription("inventario");
         Product product = new Product();
-        product.setId(idProduct);
+        product.setId(idproduct);
         stock.setProduct(product);
         stockService.saveStock(validateStock.calculateBalance(stock));
         return "redirect:/admin/products/show";
