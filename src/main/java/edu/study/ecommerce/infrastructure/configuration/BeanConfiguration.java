@@ -5,6 +5,7 @@ import edu.study.ecommerce.application.repository.StockRepository;
 import edu.study.ecommerce.application.service.ProductService;
 import edu.study.ecommerce.application.service.StockService;
 import edu.study.ecommerce.application.service.UploadFile;
+import edu.study.ecommerce.application.service.ValidateStock;
 import edu.study.ecommerce.infrastructure.mapper.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -98,5 +99,15 @@ public class BeanConfiguration {
     @Bean
     public StockMapper stockMapper(ProductMapper productMapper) {
         return new StockMapper(productMapper);
+    }
+
+    /**
+     * ValidateStock bean
+     * @param stockService
+     * @return ValidateStock
+     */
+    @Bean
+    public ValidateStock validateStock(StockService stockService) {
+        return new ValidateStock(stockService);
     }
 }
