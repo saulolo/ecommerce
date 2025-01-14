@@ -39,7 +39,6 @@ public class HomeController {
         return "home";
     }
 
-
     /**
      * Displays the product detail page.
      *
