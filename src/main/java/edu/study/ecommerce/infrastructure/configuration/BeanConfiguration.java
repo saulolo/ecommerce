@@ -1,11 +1,9 @@
 package edu.study.ecommerce.infrastructure.configuration;
 
+import edu.study.ecommerce.application.repository.OrderRepository;
 import edu.study.ecommerce.application.repository.ProductRepository;
 import edu.study.ecommerce.application.repository.StockRepository;
-import edu.study.ecommerce.application.service.ProductService;
-import edu.study.ecommerce.application.service.StockService;
-import edu.study.ecommerce.application.service.UploadFile;
-import edu.study.ecommerce.application.service.ValidateStock;
+import edu.study.ecommerce.application.service.*;
 import edu.study.ecommerce.infrastructure.mapper.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -110,4 +108,15 @@ public class BeanConfiguration {
     public ValidateStock validateStock(StockService stockService) {
         return new ValidateStock(stockService);
     }
+
+    /**
+     * OrderService bean
+     * @param orderRepository
+     * @return OrderService
+     */
+    @Bean
+    public OrderService orderService(OrderRepository orderRepository) {
+        return new OrderService(orderRepository);
+    }
+
 }
