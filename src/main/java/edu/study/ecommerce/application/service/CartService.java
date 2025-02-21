@@ -68,4 +68,9 @@ public class CartService {
         itemCartHashMap.clear();
         itemCarts.clear();
     }
+
+    //Solo es para mirar por consola
+    public List<ItemCart> getItemCarts() {
+        return itemCarts;
+    }
 }

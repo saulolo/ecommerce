@@ -8,6 +8,9 @@ import edu.study.ecommerce.application.service.*;
 import edu.study.ecommerce.infrastructure.mapper.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.web.context.WebApplicationContext;
 
 @Configuration
 public class BeanConfiguration {
@@ -149,6 +152,17 @@ public class BeanConfiguration {
     @Bean
     public OrderProductMapper orderProductMapper(ProductMapper productMapper, OrderMapper orderMapper) {
         return new OrderProductMapper(productMapper, orderMapper);
+    }
+
+    /**
+     * Creates a session-scoped bean for CartService.
+     * The bean is proxied to support session scope in a Spring context.
+     * @return the CartService instance.
+     */
+    @Bean
+    @Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
+    public CartService cartService() {
+        return new CartService();
     }
 
 }
