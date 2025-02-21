@@ -9,13 +9,12 @@ import java.util.stream.StreamSupport;
 
 public class OrderMapper {
 
-    private final OrderProductMapper orderProductMapper;
     private final UserDomainMapper userDomainMapper;
 
-    public OrderMapper(OrderProductMapper orderProductMapper, UserDomainMapper userDomainMapper) {
-        this.orderProductMapper = orderProductMapper;
+    public OrderMapper(UserDomainMapper userDomainMapper) {
         this.userDomainMapper = userDomainMapper;
     }
+
 
     /**
      * Convert OrderEntity to Order

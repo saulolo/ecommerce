@@ -1,5 +1,6 @@
 package edu.study.ecommerce.infrastructure.configuration;
 
+import edu.study.ecommerce.application.repository.OrderProductRepository;
 import edu.study.ecommerce.application.repository.OrderRepository;
 import edu.study.ecommerce.application.repository.ProductRepository;
 import edu.study.ecommerce.application.repository.StockRepository;
@@ -117,6 +118,37 @@ public class BeanConfiguration {
     @Bean
     public OrderService orderService(OrderRepository orderRepository) {
         return new OrderService(orderRepository);
+    }
+
+    /**
+     * Creates a bean for OrderProductService.
+     * @param orderProductRepository the repository to be injected.
+     * @return the OrderProductService instance.
+     */
+    @Bean
+    public OrderProductService orderProductService(OrderProductRepository orderProductRepository) {
+        return new OrderProductService(orderProductRepository);
+    }
+
+    /**
+     * Creates a bean for OrderMapper.
+     * @param userDomainMapper the UserDomainMapper to be injected.
+     * @return the OrderMapper instance.
+     */
+    @Bean
+    public OrderMapper orderMapper(UserDomainMapper userDomainMapper) {
+        return new OrderMapper(userDomainMapper);
+    }
+
+    /**
+     * Creates a bean for OrderProductMapper.
+     * @param productMapper the ProductMapper to be injected.
+     * @param orderMapper the OrderMapper to be injected.
+     * @return the OrderProductMapper instance.
+     */
+    @Bean
+    public OrderProductMapper orderProductMapper(ProductMapper productMapper, OrderMapper orderMapper) {
+        return new OrderProductMapper(productMapper, orderMapper);
     }
 
 }
