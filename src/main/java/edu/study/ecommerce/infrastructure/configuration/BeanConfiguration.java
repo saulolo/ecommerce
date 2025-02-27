@@ -1,9 +1,6 @@
 package edu.study.ecommerce.infrastructure.configuration;
 
-import edu.study.ecommerce.application.repository.OrderProductRepository;
-import edu.study.ecommerce.application.repository.OrderRepository;
-import edu.study.ecommerce.application.repository.ProductRepository;
-import edu.study.ecommerce.application.repository.StockRepository;
+import edu.study.ecommerce.application.repository.*;
 import edu.study.ecommerce.application.service.*;
 import edu.study.ecommerce.infrastructure.mapper.*;
 import org.springframework.context.annotation.Bean;
@@ -165,4 +162,15 @@ public class BeanConfiguration {
         return new CartService();
     }
 
+    /**
+     * Creates and configures a bean for the UserService.
+     * This method initializes the UserService with the provided UserRepository.
+     *
+     * @param userRepository the repository to be injected into the UserService.
+     * @return a new instance of UserService configured with the given UserRepository.
+     */
+    @Bean
+    public UserService userService(UserRepository userRepository) {
+        return new UserService(userRepository);
+    }
 }
