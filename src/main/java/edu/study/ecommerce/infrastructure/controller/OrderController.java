@@ -70,7 +70,7 @@ public class OrderController {
      */
     @GetMapping("/create-order")
     public String createOrder() {
-        log.info("Create order...");
+        log.info("Crear Orden...");
 
         // Retrieve a user from the database with ID 1
         User user = userService.findById(1);
@@ -98,14 +98,15 @@ public class OrderController {
                 Stock stock = new Stock();
                 stock.setDateCreated(LocalDateTime.now());
                 stock.setProduct(op.getProduct());
-                stock.setDescription("For sale");
-                stock.setUnitIn(op.getQuantity());
+                stock.setDescription("Venta");
+                stock.setUnitIn(0);
+                stock.setUnitOut(op.getQuantity());
                 stockService.saveStock(validateStock.calculateBalance(stock));
             });
-
-            // Clear the shopping cart
-            cartService.removeAllItemsCart();
         }
+
+        // Clear the shopping cart
+        cartService.removeAllItemsCart();
 
         // Redirect the user to the home page
         return "redirect:/home";
