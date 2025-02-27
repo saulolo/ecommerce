@@ -51,5 +51,4 @@ public class OrderProductRepositoryImpl implements OrderProductRepository {
     public List<OrderProduct> getOrderProductsByOrder(Order order) {
         return orderProductMapper.toOrderProducts(productCrudRepository.findByPkOrderEntity(orderMapper.toOrderEntity(order)));
     }
-
 }

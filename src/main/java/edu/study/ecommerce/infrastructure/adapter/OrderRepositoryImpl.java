@@ -17,11 +17,11 @@ public class OrderRepositoryImpl implements OrderRepository {
         this.orderMapper = orderMapper;
     }
 
+
     @Override
     public Iterable<Order> getOrders() {
         return null;
     }
-
 
     /**
      * Get orders by user
@@ -50,6 +50,12 @@ public class OrderRepositoryImpl implements OrderRepository {
         return orderMapper.toOrder(orderCrudRepository.save(orderMapper.toOrderEntity(order)));
     }
 
+    /**
+     * Deletes an order by its ID.
+     * Currently, this method is not implemented.
+     *
+     * @param id the ID of the order to delete.
+     */
     @Override
     public void deleteOrderById(Integer id) {
 
