@@ -173,4 +173,16 @@ public class BeanConfiguration {
     public UserService userService(UserRepository userRepository) {
         return new UserService(userRepository);
     }
+
+    /**
+     * Creates and configures a bean for the RegistrationService.
+     * This method initializes the RegistrationService with the provided UserService.
+     *
+     * @param userService the service to be injected into the RegistrationService.
+     * @return a new instance of RegistrationService configured with the given UserService.
+     */
+    @Bean
+    public RegistrationService registrationService(UserService userService) {
+        return new RegistrationService(userService);
+    }
 }
