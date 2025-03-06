@@ -10,7 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.View;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Slf4j
 @Controller
@@ -19,12 +19,10 @@ public class RegistrationController {
 
 
     private final RegistrationService registrationService;
-    private final View error;
     private final UserDTOMapper userDTOMapper;
 
-    public RegistrationController(RegistrationService registrationService, View error, UserDTOMapper userDTOMapper) {
+    public RegistrationController(RegistrationService registrationService, UserDTOMapper userDTOMapper) {
         this.registrationService = registrationService;
-        this.error = error;
         this.userDTOMapper = userDTOMapper;
     }
 
@@ -35,7 +33,7 @@ public class RegistrationController {
      * @return The name of the view "register".
      */
     @GetMapping
-    public String register() {
+    public String register(UserDTO userDTO) {
         return "register";
     }
 
@@ -47,11 +45,13 @@ public class RegistrationController {
      * @return The name of the view "register".
      */
     @PostMapping
-    public String registerUser(@Valid UserDTO userDTO, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            bindingResult.getAllErrors().forEach(e -> log.error("Errors {}", e.getDefaultMessage()));
+    public String registerUser(@Valid UserDTO userDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+        if(bindingResult.hasErrors()) {
+            bindingResult.getAllErrors().forEach(e -> log.info("Error {}", e.getDefaultMessage()));
+            return "register";
         }
         registrationService.register(userDTOMapper.fromUserDtoToUser(userDTO));
+        redirectAttributes.addFlashAttribute("sucess", "Usuario registrado con exito");
         return "redirect:/register";
     }
 }
