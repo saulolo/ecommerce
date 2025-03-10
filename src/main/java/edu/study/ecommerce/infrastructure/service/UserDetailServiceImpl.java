@@ -2,6 +2,7 @@ package edu.study.ecommerce.infrastructure.service;
 
 import edu.study.ecommerce.application.service.LoginService;
 import edu.study.ecommerce.domain.User;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -11,11 +12,13 @@ import org.springframework.stereotype.Service;
 public class UserDetailServiceImpl implements UserDetailsService {
 
     private final LoginService loginService;
+    private final HttpSession httpSession;
 
     private final Integer USER_NOT_FOUND = 0;
 
-    public UserDetailServiceImpl(LoginService loginService) {
+    public UserDetailServiceImpl(LoginService loginService, HttpSession httpSession) {
         this.loginService = loginService;
+        this.httpSession = httpSession;
     }
 
     /**
@@ -32,6 +35,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
         Integer idUser = loginService.getUserId(username);
         if (idUser != USER_NOT_FOUND) {
             User user = loginService.getUser(username);
+            httpSession.setAttribute("iduser", user.getId());
             return org.springframework.security.core.userdetails.User.builder()
                     .username(user.getUsername())
                     .password(user.getPassword())

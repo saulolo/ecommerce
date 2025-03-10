@@ -2,7 +2,6 @@ package edu.study.ecommerce.application.service;
 
 import edu.study.ecommerce.domain.User;
 import edu.study.ecommerce.domain.UserType;
-import edu.study.ecommerce.infrastructure.dto.UserDTO;
 
 public class LoginService {
 
@@ -14,15 +13,10 @@ public class LoginService {
     }
 
 
-    /**
-     * This method is used to check if the user exists in the database
-     *
-     * @param userDTO the user object to be checked.
-     * @return true if the user exists, false otherwise.
-     */
-    public boolean existUser(UserDTO userDTO) {
+
+    public boolean existUser(String email) {
         try {
-            User user = userService.findByEmail(userDTO.getEmail());
+            User user = userService.findByEmail(email);
         } catch (Exception e) {
             return false;
         }
@@ -47,15 +41,9 @@ public class LoginService {
         }
     }
 
-    /**
-     * Retrieves the user type associated with the given email address.
-     * This method queries the user service to find the user by email and returns their user type.
-     *
-     * @param userDTO the user object to be checked.
-     * @return the user type of the user.
-     */
-    public UserType getUserType(UserDTO userDTO) {
-            return userService.findByEmail(userDTO.getEmail()).getUserType();
+
+    public UserType getUserType(String email) {
+            return userService.findByEmail(email).getUserType();
     }
 
     /**
@@ -73,6 +61,22 @@ public class LoginService {
 
         try {
             return userService.findByEmail(email);
+        } catch (Exception e) {
+            return new User();
+        }
+    }
+
+    /**
+     * Retrieves the user associated with the given id.
+     * If the user is not found or an exception occurs, returns a new, empty User object.
+     *
+     * @param id the id of the user to search for. Must not be null.
+     * @return the User object if found, or a new, empty User object otherwise.
+     * @throws IllegalArgumentException if the id is null.
+     */
+    public User getUser(Integer id) {
+        try {
+            return userService.findById(id);
         } catch (Exception e) {
             return new User();
         }

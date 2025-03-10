@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.context.WebApplicationContext;
 
 @Configuration
@@ -176,14 +177,15 @@ public class BeanConfiguration {
 
     /**
      * Creates and configures a bean for the RegistrationService.
-     * This method initializes the RegistrationService with the provided UserService.
+     * This method initializes the RegistrationService with the provided UserService and PasswordEncoder.
      *
      * @param userService the service to be injected into the RegistrationService.
-     * @return a new instance of RegistrationService configured with the given UserService.
+     * @param passwordEncoder the encoder to be injected into the RegistrationService.
+     * @return a new instance of RegistrationService configured with the given UserService and PasswordEncoder.
      */
     @Bean
-    public RegistrationService registrationService(UserService userService) {
-        return new RegistrationService(userService);
+    public RegistrationService registrationService(UserService userService, PasswordEncoder passwordEncoder) {
+        return new RegistrationService(userService, passwordEncoder);
     }
 
     /**

@@ -37,10 +37,10 @@ public class SecurityConfig {
 
     /**
      * This method is used to configure the security filter chain.
-     * It disables CSRF protection and configures the authorization rules for the application.
-     * It also configures the form login page and success URL.
+     * It disables CSRF, authorizes requests based on the role of the user,
+     * and configures form login.
      *
-     * @param httpSecurity the HttpSecurity object to configure the security filter chain
+     * @param httpSecurity the HttpSecurity object to configure
      * @return the configured SecurityFilterChain
      * @throws Exception if an error occurs during configuration
      */
@@ -50,11 +50,11 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/user/**").hasRole("USER")
+                        .requestMatchers("/user/**").hasRole("USER").anyRequest().permitAll()
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
-                        .defaultSuccessUrl("/login")
+                        .defaultSuccessUrl("/login/access")
                 );
         return httpSecurity.build();
     }
