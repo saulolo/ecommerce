@@ -21,6 +21,12 @@ public class SecurityConfig {
         this.userDetailService = userDetailService;
     }
 
+    /**
+     * This method is used to configure the authentication provider.
+     * It sets the userDetailService and passwordEncoder for the provider.
+     *
+     * @return the configured DaoAuthenticationProvider
+     */
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
@@ -29,6 +35,15 @@ public class SecurityConfig {
         return provider;
     }
 
+    /**
+     * This method is used to configure the security filter chain.
+     * It disables CSRF protection and configures the authorization rules for the application.
+     * It also configures the form login page and success URL.
+     *
+     * @param httpSecurity the HttpSecurity object to configure the security filter chain
+     * @return the configured SecurityFilterChain
+     * @throws Exception if an error occurs during configuration
+     */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
@@ -44,6 +59,12 @@ public class SecurityConfig {
         return httpSecurity.build();
     }
 
+    /**
+     * This method is used to configure the password encoder.
+     * It returns a BCryptPasswordEncoder.
+     *
+     * @return a BCryptPasswordEncoder
+     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
