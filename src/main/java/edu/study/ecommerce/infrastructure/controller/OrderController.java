@@ -46,8 +46,7 @@ public class OrderController {
      * @return the name of the view to be rendered ("user/sumaryorder").
      */
     @GetMapping("/summary-order")
-    public String showSummaryOrder(Model model) {
-        HttpSession httpSession = null;
+    public String showSummaryOrder(Model model, HttpSession httpSession) {
         log.info("id user desde la variable de session: {}", httpSession.getAttribute("iduser").toString());
         User user = userService.findById(Integer.parseInt(httpSession.getAttribute("iduser").toString()));
         model.addAttribute("cart", cartService.getItemCarts());
@@ -57,24 +56,24 @@ public class OrderController {
     }
 
     /**
-     * Handles the GET request to create a new order.
-     * <p>
-     * This method performs the following actions:
-     * <ul>
-     *     <li>Retrieves a user with ID 1.</li>
-     *     <li>Creates a new order and saves it in the database.</li>
-     *     <li>Iterates through the shopping cart items and associates them with the order.</li>
-     *     <li>Saves the order products in the database.</li>
-     *     <li>Registers a stock entry with the description "For sale".</li>
-     *     <li>Removes all items from the cart after processing the order.</li>
-     * </ul>
-     * </p>
+     * Handles GET requests to create a new order.
+     * This method retrieves the current user from the session, creates a new order, associates it with the user,
+     * and processes the items in the cart to create order products and update the stock.
      *
-     * @return A redirection to the home page.
+     * <p><strong>Flow:</strong>
+     * <ol>
+     *   <li>Retrieves the current user from the session.</li>
+     *   <li>Creates a new order and associates it with the user.</li>
+     *   <li>Iterates through the cart items and creates order products.</li>
+     *   <li>Updates the stock for each product in the order.</li>
+     *   <li>Redirects to the home page after completing the order.</li>
+     * </ol>
+     *
+     * @param httpSession the HTTP session containing the current user's ID.
+     * @return a redirect to the home page ("/home").
      */
     @GetMapping("/create-order")
-    public String createOrder() {
-        HttpSession httpSession = null;
+    public String createOrder(HttpSession httpSession) {
         log.info("Crear Orden...");
         log.info("id user desde la variable de session: {}", httpSession.getAttribute("iduser").toString());
         // Retrieve a user from the database with ID 1

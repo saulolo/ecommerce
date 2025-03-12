@@ -44,22 +44,17 @@ public class ProductService {
         return productRepository.getProductById(id);
     }
 
-
     /**
-     * Saves a product in the repository, allowing for an optional image file to be uploaded.
-     * If the product already exists (has an ID), it updates the product's fields while maintaining
-     * its code, user, and creation date. If a new image is provided, it uploads the image and deletes
-     * the old one (if applicable). If no image is provided, it retains the previously stored image.
+     * Saves or updates a product, handling the associated image file and setting metadata.
+     * If the product already exists (ID is not null), it updates the product's details and image.
+     * If the product is new, it sets the creation date, update date, and associates it with the current user.
      *
-     * @param product      object to be saved or updated.
-     *                     If the product's ID is null, it is treated as a new product.
-     * @param multipartFile representing the image to be uploaded.
-     *                      If no image is provided, the existing image (if any) is retained.
-     * @return the saved {@link Product} object, including updates or changes applied during the process.
-     * @throws IllegalArgumentException if the provided multipart file is invalid or an error occurs during file upload.
+     * @param product the product to be saved or updated.
+     * @param multipartFile the image file associated with the product.
+     * @param httpSession the HTTP session containing the current user's ID.
+     * @return the saved or updated product.
      */
-    public Product saveProduct(Product product, MultipartFile multipartFile) {
-        HttpSession httpSession = null;
+    public Product saveProduct(Product product, MultipartFile multipartFile, HttpSession httpSession) {
         if (product.getId() != null) {
             Product productDB = productRepository.getProductById(product.getId());
             if (multipartFile.isEmpty()) {
