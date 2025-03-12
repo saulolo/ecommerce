@@ -199,4 +199,15 @@ public class BeanConfiguration {
     public LoginService loginService(UserService userService) {
         return new LoginService(userService);
     }
+
+    /**
+     * Creates and configures a bean for the LogoutService.
+     * This method initializes the LogoutService.
+     *
+     * @return a new instance of LogoutService.
+     */
+    @Bean
+    public LogoutService logoutService() {
+        return new LogoutService();
+    }
 }

@@ -35,14 +35,14 @@ public class SecurityConfig {
         return provider;
     }
 
+
     /**
      * This method is used to configure the security filter chain.
-     * It disables CSRF, authorizes requests based on the role of the user,
-     * and configures form login.
+     * It sets the csrf to disable, authorizes the requests and sets the form login and logout.
      *
      * @param httpSecurity the HttpSecurity object to configure
      * @return the configured SecurityFilterChain
-     * @throws Exception if an error occurs during configuration
+     * @throws Exception if an error occurs
      */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
@@ -55,6 +55,10 @@ public class SecurityConfig {
                 .formLogin(form -> form
                         .loginPage("/login")
                         .defaultSuccessUrl("/login/access")
+                )
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/home")
                 );
         return httpSecurity.build();
     }
