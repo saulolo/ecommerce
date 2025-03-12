@@ -2,6 +2,7 @@ package edu.study.ecommerce.infrastructure.controller;
 
 import edu.study.ecommerce.application.service.*;
 import edu.study.ecommerce.domain.*;
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +25,7 @@ public class OrderController {
     private final OrderProductService orderProductService;
     private final StockService stockService;
     private final ValidateStock validateStock;
+    private final Integer UNIT_IN = 0;
 
     public OrderController(CartService cartService, UserService userService, ProductService productService, OrderService orderService, OrderProductService orderProductService, StockService stockService, ValidateStock validateStock) {
         this.cartService = cartService;
@@ -45,7 +47,9 @@ public class OrderController {
      */
     @GetMapping("/summary-order")
     public String showSummaryOrder(Model model) {
-        User user = userService.findById(1);
+        HttpSession httpSession = null;
+        log.info("id user desde la variable de session: {}", httpSession.getAttribute("iduser").toString());
+        User user = userService.findById(Integer.parseInt(httpSession.getAttribute("iduser").toString()));
         model.addAttribute("cart", cartService.getItemCarts());
         model.addAttribute("total", cartService.getTotalCart());
         model.addAttribute("user", user);
@@ -70,10 +74,11 @@ public class OrderController {
      */
     @GetMapping("/create-order")
     public String createOrder() {
+        HttpSession httpSession = null;
         log.info("Crear Orden...");
-
+        log.info("id user desde la variable de session: {}", httpSession.getAttribute("iduser").toString());
         // Retrieve a user from the database with ID 1
-        User user = userService.findById(1);
+        User user = userService.findById(Integer.parseInt(httpSession.getAttribute("iduser").toString()));
 
         // Create a new order and associate it with the user
         Order order = new Order();
@@ -99,7 +104,7 @@ public class OrderController {
                 stock.setDateCreated(LocalDateTime.now());
                 stock.setProduct(op.getProduct());
                 stock.setDescription("Venta");
-                stock.setUnitIn(0);
+                stock.setUnitIn(UNIT_IN);
                 stock.setUnitOut(op.getQuantity());
                 stockService.saveStock(validateStock.calculateBalance(stock));
             });

@@ -3,6 +3,7 @@ package edu.study.ecommerce.application.service;
 import edu.study.ecommerce.application.repository.ProductRepository;
 import edu.study.ecommerce.domain.Product;
 import edu.study.ecommerce.domain.User;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
@@ -58,6 +59,7 @@ public class ProductService {
      * @throws IllegalArgumentException if the provided multipart file is invalid or an error occurs during file upload.
      */
     public Product saveProduct(Product product, MultipartFile multipartFile) {
+        HttpSession httpSession = null;
         if (product.getId() != null) {
             Product productDB = productRepository.getProductById(product.getId());
             if (multipartFile.isEmpty()) {
@@ -75,7 +77,7 @@ public class ProductService {
             product.setDateUpdated(LocalDateTime.now());
         }
         User user = new User();
-        user.setId(1);
+        user.setId(Integer.parseInt(httpSession.getAttribute("iduser").toString()));
         product.setDateCreated(LocalDateTime.now());
         product.setDateUpdated(LocalDateTime.now());
         product.setUser(user);
