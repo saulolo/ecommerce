@@ -1,6 +1,7 @@
 package edu.study.ecommerce.infrastructure.controller;
 
 import edu.study.ecommerce.application.service.CartService;
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -51,16 +52,18 @@ public class CartController {
 
     /**
      * Handles GET requests to display the shopping cart.
-     * Adds the cart items and total price to the model for rendering the view.
+     * Adds the cart items and total to the model and returns the cart view.
      *
-     * @param model the model to which attributes are added for rendering the view
-     * @return the name of the view to be rendered
+     * @param model the model to add the cart items and total to
+     * @param httpSession the HTTP session to get the user ID from
+     * @return the cart view
      */
     @GetMapping("/get-cart")
-    public String getCart(Model model) {
+    public String getCart(Model model, HttpSession httpSession) {
         showCart();
         model.addAttribute("cart", cartService.getItemCarts());
         model.addAttribute("total", cartService.getTotalCart());
+        model.addAttribute("id", httpSession.getAttribute("iduser").toString());
         return "user/cart/cart";
     }
 

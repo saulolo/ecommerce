@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -38,12 +39,23 @@ public class OrderController {
     }
 
 
+
     /**
-     * Handles GET requests to display the summary order page.
-     * Retrieves the current user, cart items, and total price, and adds them to the model for rendering.
+     * Handles GET requests to show the summary of the order.
+     * This method retrieves the items in the cart, the total price, and the user from the session.
      *
-     * @param model the model to which attributes are added for rendering the view.
-     * @return the name of the view to be rendered ("user/sumaryorder").
+     * <p><strong>Flow:</strong>
+     * <ol>
+     *   <li>Retrieves the items in the cart.</li>
+     *   <li>Retrieves the total price of the cart.</li>
+     *   <li>Retrieves the user from the session.</li>
+     *   <li>Adds the items, total price, and user to the model.</li>
+     *   <li>Displays the summary order page.</li>
+     * </ol>
+     *
+     * @param model the model to which the items, total price, and user are added.
+     * @param httpSession the HTTP session containing the current user's ID.
+     * @return the name of the view to show the summary of the order.
      */
     @GetMapping("/summary-order")
     public String showSummaryOrder(Model model, HttpSession httpSession) {
@@ -52,28 +64,31 @@ public class OrderController {
         model.addAttribute("cart", cartService.getItemCarts());
         model.addAttribute("total", cartService.getTotalCart());
         model.addAttribute("user", user);
+        model.addAttribute("id", httpSession.getAttribute("iduser").toString());
         return "user/sumaryorder";
     }
 
     /**
-     * Handles GET requests to create a new order.
-     * This method retrieves the current user from the session, creates a new order, associates it with the user,
-     * and processes the items in the cart to create order products and update the stock.
+     * Handles GET requests to create an order.
+     * This method creates a new order and associates it with the user.
+     * It also associates the products in the cart with the order and updates the stock.
      *
      * <p><strong>Flow:</strong>
      * <ol>
-     *   <li>Retrieves the current user from the session.</li>
+     *   <li>Retrieves the user from the session.</li>
      *   <li>Creates a new order and associates it with the user.</li>
-     *   <li>Iterates through the cart items and creates order products.</li>
-     *   <li>Updates the stock for each product in the order.</li>
-     *   <li>Redirects to the home page after completing the order.</li>
+     *   <li>Iterates through the cart items and associates them with the order.</li>
+     *   <li>Saves each product in the order and updates the stock.</li>
+     *   <li>Clears the shopping cart.</li>
+     *   <li>Redirects the user to the home page.</li>
      * </ol>
      *
+     * @param attributes the attributes to add to the redirect.
      * @param httpSession the HTTP session containing the current user's ID.
-     * @return a redirect to the home page ("/home").
+     * @return the name of the view to show the summary of the order.
      */
     @GetMapping("/create-order")
-    public String createOrder(HttpSession httpSession) {
+    public String createOrder(RedirectAttributes attributes, HttpSession httpSession) {
         log.info("Crear Orden...");
         log.info("id user desde la variable de session: {}", httpSession.getAttribute("iduser").toString());
         // Retrieve a user from the database with ID 1
@@ -111,9 +126,9 @@ public class OrderController {
 
         // Clear the shopping cart
         cartService.removeAllItemsCart();
+        attributes.addFlashAttribute("id", httpSession.getAttribute("iduser").toString());
 
         // Redirect the user to the home page
         return "redirect:/home";
     }
-
 }
