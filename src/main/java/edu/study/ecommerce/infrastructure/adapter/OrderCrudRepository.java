@@ -7,9 +7,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface OrderCrudRepository extends JpaRepository<OrderEntity, Integer > {
 
     /**
-     * Find all orders by user
+     * Find orders by user entity
+     *
      * @param userEntity
-     * @return
+     * @return Iterable<OrderEntity>
      */
-    public Iterable<OrderEntity> findByUser(UserEntity userEntity);
+    Iterable<OrderEntity> findByUserEntity(UserEntity userEntity);
 }

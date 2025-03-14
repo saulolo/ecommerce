@@ -37,7 +37,7 @@
       </h1>
 
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+        <li class="breadcrumb-item"><a th:href="@{/home}">Home</a></li>
         <li class="breadcrumb-item active">Compras</li>
       </ol>
 
@@ -49,16 +49,16 @@
             <table class="table">
               <thead>
                 <tr>
-                  <th scope="col">No. de Orden</th>
+                  <th scope="col">Id</th>
                   <th scope="col">Fecha</th>
                   <th scope="col">Valor</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody th:each="order : ${orders}">
                 <tr>
-                  <td >4555454</td>
-                  <td >Fecha de Compra</td>
-                  <td >Total</td>                  
+                  <td th:text="${order.id}">4555454</td>
+                  <td th:text="${order.dateCreated}">Fecha de Compra</td>
+                  <td th:text="${order.getTotalOrderPrice()}">Total</td>
                 </tr>
               </tbody>
             </table>

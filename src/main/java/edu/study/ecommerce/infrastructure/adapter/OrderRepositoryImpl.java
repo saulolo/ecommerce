@@ -31,15 +31,15 @@ public class OrderRepositoryImpl implements OrderRepository {
         return null;
     }
 
-    /**
-     * Get orders by user
+ /**
+     * Get all orders by user
      *
      * @param user
      * @return Iterable<Order>
      */
     @Override
     public Iterable<Order> getOrdersByUser(User user) {
-        return orderMapper.toOrders(orderCrudRepository.findByUser(userDomainMapper.fromUserToUserEntity(user)));
+        return orderMapper.toOrders(orderCrudRepository.findByUserEntity(userDomainMapper.fromUserToUserEntity(user)));
     }
 
     @Override
