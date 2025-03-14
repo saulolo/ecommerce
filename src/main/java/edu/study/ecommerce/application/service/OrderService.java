@@ -2,6 +2,7 @@ package edu.study.ecommerce.application.service;
 
 import edu.study.ecommerce.application.repository.OrderRepository;
 import edu.study.ecommerce.domain.Order;
+import edu.study.ecommerce.domain.User;
 
 public class OrderService {
 
@@ -22,12 +23,14 @@ public class OrderService {
         return orderRepository.saveOrder(order);
     };
 
+
     /**
-     * Get all orders
+     * Get orders by user
      *
-     * @return Iterable<Order>
+     * @param user User object to get orders by user from repository
+     * @return Iterable<Order> List of orders
      */
-    public Iterable<Order> getOrders() {
+    public Iterable<Order> getOrdersByUsers(User user) {
         return orderRepository.getOrders();
     };
 }

@@ -4,6 +4,7 @@ import edu.study.ecommerce.application.repository.OrderRepository;
 import edu.study.ecommerce.domain.Order;
 import edu.study.ecommerce.domain.User;
 import edu.study.ecommerce.infrastructure.mapper.OrderMapper;
+import edu.study.ecommerce.infrastructure.mapper.UserDomainMapper;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -11,13 +12,20 @@ public class OrderRepositoryImpl implements OrderRepository {
 
     private final OrderCrudRepository orderCrudRepository;
     private final OrderMapper orderMapper;
+    private final UserDomainMapper userDomainMapper;
 
-    public OrderRepositoryImpl(OrderCrudRepository orderCrudRepository, OrderMapper orderMapper) {
+    public OrderRepositoryImpl(OrderCrudRepository orderCrudRepository, OrderMapper orderMapper, UserDomainMapper userDomainMapper) {
         this.orderCrudRepository = orderCrudRepository;
         this.orderMapper = orderMapper;
+        this.userDomainMapper = userDomainMapper;
     }
 
 
+    /**
+     * Get all orders
+     *
+     * @return Iterable<Order>
+     */
     @Override
     public Iterable<Order> getOrders() {
         return null;
@@ -31,7 +39,7 @@ public class OrderRepositoryImpl implements OrderRepository {
      */
     @Override
     public Iterable<Order> getOrdersByUser(User user) {
-        return orderMapper.toOrders(orderCrudRepository.findAll());
+        return orderMapper.toOrders(orderCrudRepository.findByUser(userDomainMapper.fromUserToUserEntity(user)));
     }
 
     @Override
@@ -58,6 +66,5 @@ public class OrderRepositoryImpl implements OrderRepository {
      */
     @Override
     public void deleteOrderById(Integer id) {
-
     }
 }
