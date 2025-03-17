@@ -1,5 +1,6 @@
 package edu.study.ecommerce.infrastructure.configuration;
 
+import edu.study.ecommerce.infrastructure.service.LoginHandler;
 import edu.study.ecommerce.infrastructure.service.UserDetailServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,10 +17,13 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     private final UserDetailServiceImpl userDetailService;
+    private final LoginHandler loginHandler;
 
-    public SecurityConfig(UserDetailServiceImpl userDetailService) {
+    public SecurityConfig(UserDetailServiceImpl userDetailService, LoginHandler loginHandler) {
         this.userDetailService = userDetailService;
+        this.loginHandler = loginHandler;
     }
+
 
     /**
      * This method is used to configure the authentication provider.
@@ -54,7 +58,7 @@ public class SecurityConfig {
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
-                        .defaultSuccessUrl("/login/access")
+                        .successHandler(loginHandler)
                 )
                 .logout(logout -> logout
                         .logoutUrl("/logout")

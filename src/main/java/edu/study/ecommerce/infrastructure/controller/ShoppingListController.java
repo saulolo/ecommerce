@@ -45,6 +45,7 @@ public class ShoppingListController {
         for (Order order : orders) {
             newListOrder.add(getOrdersProducts(order));
         }
+        model.addAttribute("id", Integer.parseInt(httpSession.getAttribute("iduser").toString()));
         model.addAttribute("orders", newListOrder);
         return "user/shoppingList";
     }

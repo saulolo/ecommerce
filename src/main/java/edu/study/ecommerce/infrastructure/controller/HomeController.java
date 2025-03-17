@@ -3,6 +3,7 @@ package edu.study.ecommerce.infrastructure.controller;
 import edu.study.ecommerce.application.service.ProductService;
 import edu.study.ecommerce.application.service.StockService;
 import edu.study.ecommerce.domain.Stock;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,8 +35,13 @@ public class HomeController {
      * @return the name of the view to display
      */
     @GetMapping
-    public String home(Model model) {
+    public String home(Model model, HttpSession httpSession) {
         model.addAttribute("products", productService.getProducts());
+        try {
+            model.addAttribute("id", httpSession.getAttribute("iduser").toString());
+        } catch (Exception e) {
+
+        }
         return "home";
     }
 
@@ -50,11 +56,16 @@ public class HomeController {
      * @return the name of the view to display
      */
     @GetMapping("/product-detail/{id}")
-    public String productDetail(@PathVariable Integer id, Model model) {
+    public String productDetail(@PathVariable Integer id, Model model, HttpSession httpSession) {
         List<Stock> stocks = stockService.getStockByProduct(productService.getProductById(id));
         Integer lastBalance = stocks.get(stocks.size() - 1).getBalance();
         model.addAttribute("product", productService.getProductById(id));
         model.addAttribute("stock", lastBalance);
+        try {
+            model.addAttribute("id", httpSession.getAttribute("iduser").toString());
+        } catch (Exception e) {
+
+        }
         return "user/productdetail";
     }
 }
